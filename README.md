@@ -126,7 +126,7 @@ services:
     network_mode: "host"
     environment:
       ETH_PRIVATE_KEY: 486a0621e595dd7fcbe5608cbbeec8f5a8b5cabe7637f11eccfc7acd408c3a0e
-      ETH_HTTP_SERVER: https://rpc.api.moonbase.moonbeam.network # CHANGED FROM GANACHE TO PUBLIC MOONBASE RPC ENDPOINT
+      ETH_HTTP_SERVER: https://moonbase-alpha.blastapi.io/4bb67718-93b3-4698-92ab-8a7af3f94d08 # CHANGED FROM GANACHE TO MOONBASE RPC ENDPOINT
       PORT: 3005
     command: ["yarn", "start"]
 
@@ -137,7 +137,7 @@ services:
       - 3006:3006
     environment:
       ETH_PRIVATE_KEY: 657b6497a355a3982928d5515d48a84870f057c4d16923eb1d104c0afada9aa8
-      ETH_HTTP_SERVER: https://rpc.api.moonbase.moonbeam.network # CHANGED FROM GANACHE TO PUBLIC MOONBASE RPC ENDPOINT
+      ETH_HTTP_SERVER: https://moonbase-alpha.blastapi.io/4bb67718-93b3-4698-92ab-8a7af3f94d08 # CHANGED FROM GANACHE TO MOONBASE RPC ENDPOINT
       MINIO_HOST: minio
       MINIO_PORT: 9000
       MINIO_ACCESS_KEY: dev
