@@ -1,0 +1,13 @@
+# Node Modules
+node_modules
+
+# Local Variables and Secrets
+.env
+secrets.json
+
+# Package management tool
+yarn.lock
+yarn-error.log
+
+# Build
+build

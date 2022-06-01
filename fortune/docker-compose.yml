@@ -1,0 +1,56 @@
+version: '3.7'
+
+services:
+  minio:
+    image: quay.io/minio/minio
+    ports:
+      - 9001:9001
+      - 9000:9000
+    environment:
+      MINIO_ROOT_USER: dev
+      MINIO_ROOT_PASSWORD: devdevdev
+    volumes:
+      - ./docker-manifest.json:/tmp/manifests/docker-manifest.json
+    entrypoint: 'sh'
+    command:
+      -c "mkdir -p /data/manifests && cp /tmp/manifests/docker-manifest.json /data/manifests/manifest.json && minio server /data --console-address ':9001'"
+
+  launcher:
+    build:
+      context: ./launcher
+    ports:
+      - 3000:3000
+    command: ["yarn", "start-prod"]
+
+  exchange:
+    build:
+      context: ./exchange
+    ports:
+      - 3001:3000
+    command: ["yarn", "start-prod"]
+
+  recording-oracle:
+    build:
+      context: ./recording-oracle
+    network_mode: "host"
+    environment:
+      ETH_PRIVATE_KEY: 486a0621e595dd7fcbe5608cbbeec8f5a8b5cabe7637f11eccfc7acd408c3a0e
+      ETH_HTTP_SERVER: https://moonbase-alpha.blastapi.io/4bb67718-93b3-4698-92ab-8a7af3f94d08
+      PORT: 3005
+    command: ["yarn", "start"]
+
+  reputation-oracle:
+    build:
+      context: ./reputation-oracle
+    ports:
+      - 3006:3006
+    environment:
+      ETH_PRIVATE_KEY: 657b6497a355a3982928d5515d48a84870f057c4d16923eb1d104c0afada9aa8
+      ETH_HTTP_SERVER: https://moonbase-alpha.blastapi.io/4bb67718-93b3-4698-92ab-8a7af3f94d08
+      MINIO_HOST: minio
+      MINIO_PORT: 9000
+      MINIO_ACCESS_KEY: dev
+      MINIO_SECRET_KEY: devdevdev
+      MINIO_BUCKET_NAME: job-results
+      PORT: 3006
+    command: ["yarn", "start"]
