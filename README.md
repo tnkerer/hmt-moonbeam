@@ -174,6 +174,7 @@ export const EXCHANGE_ORACLE_ADDRESS = '0x6b7E3C31F34cF38d1DFC1D9A8A594820283958
 With the changes above, the fortune app can be started by running:
 
 ```csh
+docker-compose build
 docker-compose up
 ```
 
